@@ -24,4 +24,26 @@ extension ZIPFoundationTests {
             return Data() })
         XCTAssertNil(invalidECDR)
     }
+    
+    func testUnzip() {
+        let url = URL.init(fileURLWithPath: "/Users/djhan/Desktop/test.zip")
+        let targetUrl = URL.init(fileURLWithPath: "/Users/djhan/Desktop/testExtract")
+        
+        guard FileManager.default.isReadableFile(atPath: url.path) == true else {
+            print("파일 접근 불가 에러")
+            return
+        }
+        let fileSystemRepresentation = FileManager.default.fileSystemRepresentation(withPath: url.path)
+        guard let _ = fopen(fileSystemRepresentation, "rb") else {
+            print("fopen: 파일 접근 불가 에러")
+            return
+        }
+
+        do {
+            try FileManager.default.unzipItem(at: url, to: targetUrl)
+        }
+        catch {
+            print("에러 발생 = \(error)")
+        }
+    }
 }

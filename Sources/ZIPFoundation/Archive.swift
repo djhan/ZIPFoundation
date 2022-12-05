@@ -55,6 +55,7 @@ let memoryURLScheme = "memory"
 ///     try archive?.addEntry("test.txt", relativeTo: baseURL, compressionMethod: .deflate)
 public final class Archive: Sequence {
     typealias LocalFileHeader = Entry.LocalFileHeader
+    typealias GeneralPurposeBitFlag = Entry.GeneralPurposeBitFlag
     typealias DataDescriptor = Entry.DefaultDataDescriptor
     typealias ZIP64DataDescriptor = Entry.ZIP64DataDescriptor
     typealias CentralDirectoryStructure = Entry.CentralDirectoryStructure

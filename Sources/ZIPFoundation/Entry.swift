@@ -62,6 +62,19 @@ public struct Entry: Equatable {
         var extraFields: [ExtensibleDataField]?
     }
 
+    struct GeneralPurposeBitFlag: OptionSet {
+        let rawValue: UInt16
+        
+        static let encrypted = GeneralPurposeBitFlag(rawValue: 1 << 0)
+        static let normalCompression = GeneralPurposeBitFlag(rawValue: 0 << 1)
+        static let maximumCompression = GeneralPurposeBitFlag(rawValue: 1 << 1)
+        static let fastCompression = GeneralPurposeBitFlag(rawValue: 1 << 2)
+        static let superFastCompression = GeneralPurposeBitFlag(rawValue: (1 << 1) | (1 << 2))
+        static let sizeInDataDescriptor = GeneralPurposeBitFlag(rawValue: (1 << 3))
+        static let encryptionStrong = GeneralPurposeBitFlag(rawValue: (1 << 6))
+        static let languageEncoding = GeneralPurposeBitFlag(rawValue: (1 << 11))
+    }
+
     struct DataDescriptor<T: BinaryInteger>: DataSerializable {
         let data: Data
         let dataDescriptorSignature = UInt32(dataDescriptorStructSignature)

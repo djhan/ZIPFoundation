@@ -46,8 +46,10 @@ extension Archive {
         switch mode {
         case .read:
             let fileSystemRepresentation = fileManager.fileSystemRepresentation(withPath: url.path)
-            guard let archiveFile = fopen(fileSystemRepresentation, "rb"),
-                  let (eocdRecord, zip64EOCD) = Archive.scanForEndOfCentralDirectoryRecord(in: archiveFile) else {
+            guard let archiveFile = fopen(fileSystemRepresentation, "rb") else {
+                return nil
+            }
+            guard let (eocdRecord, zip64EOCD) = Archive.scanForEndOfCentralDirectoryRecord(in: archiveFile) else {
                 return nil
             }
             return BackingConfiguration(file: archiveFile,
